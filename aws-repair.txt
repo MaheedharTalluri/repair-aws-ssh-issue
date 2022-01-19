@@ -1,0 +1,29 @@
+Content-Type: multipart/mixed; boundary="//"
+MIME-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+- [scripts-user, always]
+
+--//
+Content-Type:
+    text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="userdata.txt"
+
+#!/bin/bash
+OS_USER=@@@@@@
+chown root:root /home 
+chmod 755 /home
+chown $OS_USER:$OS_USER/home/$OS_USER -R
+chmod 700 /home/$OS_USER
+chmod 700 /home/$OS_USER/.ssh
+chmod 600 /home/$OS_USER/.ssh/authorized_keys
+--//
